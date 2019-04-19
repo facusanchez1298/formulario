@@ -17,11 +17,12 @@ namespace WindowsFormsApp1
         {
             this.personas = personas;
             InitializeComponent();
+            cargarTabla(personas);
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
-
+                      
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -31,28 +32,16 @@ namespace WindowsFormsApp1
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
-            DataTable dataTable = new DataTable();
-
-            dataTable.Columns.Add("nombre");
-            dataTable.Columns.Add("apellido");
-            dataTable.Columns.Add("sexo");
-
-
-            foreach (var item in personas)
-                {
-                DataRow dataRow = dataTable.NewRow();
-                dataRow["nombre"] = item.nombre;
-                dataRow["apellido"] = item.apellido;
-                dataRow["sexo"] = item.sexo;
-                }
-
-            dataGridView1.DataSource = dataTable;
-
-            
+            cargarTabla(personas);
         }
 
         private void button1_Click(object sender, EventArgs e)
+        {
+            cargarTablaBusqueda();
+        }  
+
+
+        public void cargarTabla(List<Persona> personas)
         {
             DataTable dataTable = new DataTable();
 
@@ -62,19 +51,69 @@ namespace WindowsFormsApp1
 
             for (int i = 0; i < personas.Count; i++)
             {
-
                 string nombre = personas.ElementAt(i).nombre;
                 string apellido = personas.ElementAt(i).apellido;
                 string sexo = personas.ElementAt(i).sexo;
                 dataTable.Rows.Add(nombre, apellido, sexo);
             }
 
-            
+
 
             dataGridView1.DataSource = dataTable;
+        }
+
+        public void cargarTablaBusqueda()
+        {
+            List<Persona> personaBusqueda = new List<Persona>();
+
+            var lista = from item in personas
+                        select item;
+
+            if (textNombre.Text != "")
+            {
+              lista = from item in lista
+                         where item.nombre == textNombre.Text
+                         select item;
+            }
+
+            if (textApellido.Text != "")
+            {
+                 lista = from item in lista
+                            where item.apellido == textApellido.Text
+                            select item;
+            }
+
+            if (radioVaron.Checked)
+            {
+                 lista = from item in lista
+                         where item.sexo == radioVaron.Text
+                         select item;
+            }
+
+            if (radioMujer.Checked)
+            {
+                lista = from item in lista
+                        where item.sexo == radioMujer.Text
+                        select item;
+            }
+
+            if (radioNoBinario.Checked)
+            {
+                lista = from item in lista
+                        where item.sexo == radioNoBinario.Text
+                        select item;
+            }
 
 
+            foreach (Persona persona in lista)
+            {
+                personaBusqueda.Add(persona);
+            }
 
-        }  
+            cargarTabla(personaBusqueda);
+
+        }
+
+     
     }
 }

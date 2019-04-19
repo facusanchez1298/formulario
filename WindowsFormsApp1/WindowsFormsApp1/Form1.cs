@@ -17,26 +17,23 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
-        }
-
-     
+        }    
 
         private void button2_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-
-
         private void buttonGuardar1_Click(object sender, EventArgs e)
         {
             if (!hayCamposVacios())
             {
                 personas.Add(new Persona(this.txtNombre.Text, this.txtApellido.Text, this.radioButtonActivo().Text));
-                Console.Write("guardado");
                 this.labelResultado.Text = "guardado";
+                vaciarCampos();//limpia los campos
             }
-            Console.Write("guardado");
+            
+          
         }
 
         private bool hayCamposVacios()
@@ -50,22 +47,21 @@ namespace WindowsFormsApp1
 
         private RadioButton radioButtonActivo()
         {
-            if (radioButtomVaron.Focused) return this.radioButtomVaron;
-            if (radioButtonMujer.Focused) return this.radioButtonMujer;
+            if (radioButtomVaron.Checked) return this.radioButtomVaron;
+            if (radioButtonMujer.Checked) return this.radioButtonMujer;
             return this.radioButtonNoBinario;
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void buttonMostrar_Click(object sender, EventArgs e)
         {
-
-
             Form2 vista = new Form2(personas);
             vista.Show();
+        }
+
+        public void vaciarCampos()
+        {
+            this.txtApellido.Text = "";
+            this.txtNombre.Text = "";
         }
     }
 }

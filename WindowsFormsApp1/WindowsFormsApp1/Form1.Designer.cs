@@ -82,7 +82,6 @@
             this.label3.Size = new System.Drawing.Size(29, 13);
             this.label3.TabIndex = 2;
             this.label3.Text = "sexo";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // radioButtomVaron
             // 
@@ -144,7 +143,6 @@
             this.labelResultado.Name = "labelResultado";
             this.labelResultado.Size = new System.Drawing.Size(0, 13);
             this.labelResultado.TabIndex = 2;
-            this.labelResultado.Click += new System.EventHandler(this.label3_Click);
             // 
             // buttonMostrar
             // 
